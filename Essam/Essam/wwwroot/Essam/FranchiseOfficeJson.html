@@ -2,6 +2,22 @@
 
 <template>
     <template is="dom-bind">
-        
+        <div style="width:80%">
+            <div width="200px" style="display:table-cell; width:200px">
+                <a href="{{model.FranchiseOfficeDetailsUrl}}" target="_self">{{model.FranchiseOfficeName}}</a>
+            </div>
+            <div width="200px" style="display:table-cell; width:200px">
+                {{model.HomesTotal}}
+            </div>
+            <div width="200px" style="display:table-cell; width:200px">
+                {{model.CommissionsTotal}}
+            </div>
+            <div width="200px" style="display:table-cell; width:200px">
+                {{model.CommissionsAverage}}
+            </div>
+            <div width="200px" style="display:table-cell; width:200px" >
+                {{model.Trend}}
+            </div>
+        </div>
     </template>
 </template>

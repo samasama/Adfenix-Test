@@ -5,19 +5,21 @@ namespace Essam
 {
     partial class StartJson : Json
     {
+
         void Handle(Input.SaveTrigger action)
         {
 
             var corp = new Corporation()
             {
-                Name = ((Start)this.Data).CorporationName
+                Name = CorporationName
             };
             Transaction.Commit();
             AddCorporation(corp);
         }
         public void AddCorporation(Corporation corp)
         {
-            var corpJson = Self.GET("/Essam/partials/corporation/" + corp.GetObjectID());
+            var corpJson = (CorporationJson)Self.GET("/Essam/partials/corporation/" + corp.GetObjectID());
+            corpJson.RefreshOffices(corp.FranchiseOffices);
             this.Corporations.Add(corpJson);
         }
         public void RefreshCorporations(IEnumerable<Corporation> corps)

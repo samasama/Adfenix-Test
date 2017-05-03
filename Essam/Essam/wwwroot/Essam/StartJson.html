@@ -2,16 +2,22 @@
 
 <template>
     <template is="dom-bind">
-        <h1>Welcome</h1>
-        <h2>Create Main Corporation</h2>
+        <h3>Welcome</h3>
+        <h4>Create Main Corporation</h4>
         <fieldset>
             <label>Name:</label>
             <input value="{{model.CorporationName$::input}}">
         </fieldset>
+        <br />
         <button value="{{model.SaveTrigger$::click}}" onmousedown="++this.value">Create Corporation</button>
+        <br />
+        <br />
+        <h4>List of Corporations</h4>
+        <br />
         <template is="dom-repeat" items="{{model.Corporations}}">
             <div>
                 <starcounter-include partial="{{item}}"></starcounter-include>
+                <br />
             </div>
         </template>
     </template>

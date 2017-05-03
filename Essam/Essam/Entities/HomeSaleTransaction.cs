@@ -12,6 +12,7 @@ namespace Essam
     [Database]
     public class HomeSaleTransaction:Address
     {
+
         public FranchiseOffice ParentFranchiseOffice;
         public DateTime Date;
         public decimal SalesPrice;

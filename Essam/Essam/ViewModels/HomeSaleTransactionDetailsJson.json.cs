@@ -3,20 +3,9 @@ using System;
 
 namespace Essam
 {
-    partial class HomeSaleTransactionJson : Json
+    partial class HomeSaleTransactionDetailsJson : Json
     {
-        public string FullAddress
-        {
-            get
-            {
-                if (Data != null)
-                {
-                    HomeSaleTransaction trans = (HomeSaleTransaction)Data;
-                    return trans.Street + " " + trans.House + ", " + trans.PostalCode + " " + trans.City + ", " + trans.Country;
-                }
-                return null;
-            }
-        }
+        public string FullAddress => Street + " " + House + ", " + PostalCode + " " + City + ", " + Country;
 
         private string dateString;
         public string DateString
@@ -44,6 +33,10 @@ namespace Essam
                 }
 
             }
+        }
+        public void Save()
+        {
+            Transaction.Commit();
         }
     }
 }

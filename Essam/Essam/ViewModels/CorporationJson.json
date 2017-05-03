@@ -1,5 +1,12 @@
 {
   "Html": "/Essam/CorporationJson.html",
-  "Name$": ""
-  
+  "Name": "",
+  "FranchiseOffices": [ { } ],
+  "FranchiseOfficeName$":  "",
+  "SortByHomeCountTrigger$": 0,
+  "SortByTotalCommissionTrigger$": 0,
+  "SortByAverageCommissionTrigger$": 0,
+  "SortByPositiveTrendTrigger$": 0,
+  "SortedBy": "None",
+  "SaveTrigger$": 0
 }

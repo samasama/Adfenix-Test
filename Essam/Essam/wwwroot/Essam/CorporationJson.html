@@ -2,9 +2,54 @@
 
 <template>
     <template is="dom-bind">
-        <fieldset>
-            <label>Name:</label>
-            <input value="{{model.Name$::input}}">
-        </fieldset>
+        <div style="border:solid;border-width:1px;width:100%;padding:20px;">
+            <h4><b>{{model.Name}}</b></h4>
+            <h5>Franchise Offices</h5>
+
+            <h6>Sort On</h6>
+            <table>
+
+                <tr>
+                    <td>
+                        <button value="{{model.SortByHomeCountTrigger$::click}}" onmousedown="++this.value">Number of Homes</button>
+                        &nbsp;
+                    </td>
+                    <td>
+                        <button value="{{model.SortByTotalCommissionTrigger$::click}}" onmousedown="++this.value">Total Commission</button>
+                        &nbsp;
+                    </td>
+                    <td>
+                        <button value="{{model.SortByAverageCommissionTrigger$::click}}" onmousedown="++this.value">Average Commission</button>
+                        &nbsp;
+                    </td>
+                    <td>
+                        <button value="{{model.SortByPositiveTrendTrigger$::click}}" onmousedown="++this.value">Trend</button>
+                        &nbsp;
+                    </td>
+                </tr>
+            </table>
+            <br />
+            <div width="80%">
+
+                <div style="display:table-cell;width:200px"><b>Name</b></div>
+                <div style="display:table-cell;width:200px"><b>Number of homes sold</b></div>
+                <div style="display:table-cell;width:200px"><b>Total commission</b></div>
+                <div style="display:table-cell;width:200px"><b>Average commission</b></div>
+                <div style="display:table-cell;width:200px"><b>Trend</b></div>
+
+                
+            </div>
+            <template is="dom-repeat" items="{{model.FranchiseOffices}}">
+                <starcounter-include partial="{{item}}"></starcounter-include>
+            </template>
+            <br />
+            <h5>New Franchise Office</h5>
+            <fieldset>
+                <label>Name:</label>
+                <input value="{{model.FranchiseOfficeName$::input}}">
+            </fieldset>
+            <br />
+            <button value="{{model.SaveTrigger$::click}}" onmousedown="++this.value">Create New</button>
+        </div>
     </template>
 </template>

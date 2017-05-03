@@ -10,6 +10,6 @@ namespace Essam
     [Database]
     public class Corporation:Something
     {
-        public QueryResultRows<FranchiseOffice> FranchiseOffices => Db.SQL<FranchiseOffice>("SELECT fo FROM Essam.FranchiseOffice WHERE fo.ParentCorporation = ?", this);
+        public QueryResultRows<FranchiseOffice> FranchiseOffices => Db.SQL<FranchiseOffice>("SELECT fo FROM Essam.FranchiseOffice fo WHERE fo.ParentCorporation = ?", this);
     }
 }

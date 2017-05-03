@@ -15,20 +15,15 @@ namespace Essam
             {
                 return Db.Scope(() =>
                 {
-                    var start = new Start();
-                    var json = new StartJson()
-                    {
-                        Data = start
-                    };
-                    if (start.Corporations != null)
-                    {
-                        json.RefreshCorporations(start.Corporations);
-                    }
+                    var json = new StartJson();
+                    QueryResultRows<Corporation> corps = Db.SQL<Corporation>("SELECT c FROM Essam.Corporation c");
+
+                    json.RefreshCorporations(corps);
+
                     if (Session.Current == null)
                     {
                         Session.Current = new Session(SessionOptions.PatchVersioning);
                     }
-
                     json.Session = Session.Current;
                     return json;
                 });
@@ -40,6 +35,50 @@ namespace Essam
                 json.Data = DbHelper.FromID(DbHelper.Base64DecodeObjectID(id));
                 return json;
             });
+            Handle.GET("/Essam/partials/franchise_office/{?}", (string id) =>
+            {
+                return Db.Scope(() =>
+                {
+                    var json = new FranchiseOfficeJson();
+                    json.Data = DbHelper.FromID(DbHelper.Base64DecodeObjectID(id));
+
+                    return json;
+                });
+            });
+
+            Handle.GET("/Essam/franchise_office_details/{?}", (string id) =>
+            {
+                return Db.Scope(() =>
+                {
+
+                    FranchiseOffice office = (FranchiseOffice)DbHelper.FromID(DbHelper.Base64DecodeObjectID(id));
+
+                    var json = new FranchiseOfficeDetailsJson();
+                    json.Data = DbHelper.FromID(DbHelper.Base64DecodeObjectID(id));
+
+                    json.RefreshHomeSaleTransactions(office.HomeSaleTransactions);
+
+                    json.HomeSaleTransactionNew = Db.Scope(() =>
+                    {
+                        HomeSaleTransactionDetailsJson transactionJson = new HomeSaleTransactionDetailsJson();
+                        transactionJson.Data = new HomeSaleTransaction
+                        {
+                            ParentFranchiseOffice = office
+                        };
+                        return transactionJson;
+                    });
+
+
+                    if (Session.Current == null)
+                    {
+                        Session.Current = new Session(SessionOptions.PatchVersioning);
+                    }
+                    json.Session = Session.Current;
+                    return json;
+                });
+            });
+
+
         }
     }
 }
