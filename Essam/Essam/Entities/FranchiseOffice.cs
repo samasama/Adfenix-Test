@@ -9,19 +9,39 @@ using Simplified.Ring3;
 namespace Essam
 {
     [Database]
-    public class FranchiseOffice: Address
+    public class FranchiseOffice : Address
     {
         public String FranchiseOfficeName;
 
         public Corporation ParentCorporation;
-        public QueryResultRows<HomeSaleTransaction> HomeSaleTransactions => Db.SQL<HomeSaleTransaction>("SELECT hst FROM Essam.HomeSaleTransaction hst WHERE hst.ParentFranchiseOffice = ?", this);
+        public QueryResultRows<HomeSaleTransaction> HomeSaleTransactions => Db.SQL<HomeSaleTransaction>("SELECT hst FROM Essam.HomeSaleTransaction hst WHERE hst.ParentFranchiseOffice = ? ORDER BY hst.TransactionDate DESC", this);
 
-        public decimal HomesTotal => Db.SQL<decimal>("SELECT Count(hst) FROM Essam.HomeSaleTransaction hst WHERE hst.ParentFranchiseOffice = ?", this).First;
+        public long HomesTotal => Db.SQL<long>("SELECT Count(hst) FROM Essam.HomeSaleTransaction hst WHERE hst.ParentFranchiseOffice = ?", this).First;
 
-        public decimal CommissionsTotal => Db.SQL<decimal>("SELECT Sum(hst.Commission) FROM Essam.HomeSaleTransaction hst WHERE hst.ParentFranchiseOffice = ?", this).First;
+        public long CommissionsTotal => Db.SQL<long>("SELECT Sum(hst.Commission) FROM Essam.HomeSaleTransaction hst WHERE hst.ParentFranchiseOffice = ?", this).First;
 
-        public decimal CommissionsAverage => Db.SQL<decimal>("SELECT Avg(hst.Commission) FROM Essam.HomeSaleTransaction hst WHERE hst.ParentFranchiseOffice = ?", this).First;
+        public long CommissionsAverage
+        {
+            get
+            {
+                if (HomesTotal > 0)
+                    return CommissionsTotal / HomesTotal;
+                else return 0;
+            }
+        }
+        public long Trend
+        {
+            get
+            {
+                DateTime today = DateTime.Now;
+                DateTime quarterStart = new DateTime(today.Year, (((today.Month - 1) / 3) * 3) + 1, 1);
 
-        public decimal Trend => 1;
+                long lastYearSales = Db.SQL<long>("SELECT Sum(hst.Commission) FROM Essam.HomeSaleTransaction hst WHERE hst.ParentFranchiseOffice = ? AND hst.TransactionDate >= ? and hst.TransactionDate <= ?", this, quarterStart.AddYears(-1), today.AddYears(-1)).First;
+                long thisYearSales = Db.SQL<long>("SELECT Sum(hst.Commission) FROM Essam.HomeSaleTransaction hst WHERE hst.ParentFranchiseOffice = ? AND hst.TransactionDate >= ? and hst.TransactionDate <= ?", this, quarterStart, today).First;
+                if (thisYearSales > 0)
+                    return (thisYearSales * 100) / lastYearSales;
+                return 0;
+            }
+        }
     }
 }

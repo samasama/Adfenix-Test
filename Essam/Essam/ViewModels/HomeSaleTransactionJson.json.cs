@@ -23,8 +23,8 @@ namespace Essam
         {
             get
             {
-                if (Data != null && ((HomeSaleTransaction)Data).Date != DateTime.MinValue)
-                    return ((HomeSaleTransaction)Data).Date.ToString("yyyy-MM-dd");
+                if (Data != null && ((HomeSaleTransaction)Data).TransactionDate != DateTime.MinValue)
+                    return ((HomeSaleTransaction)Data).TransactionDate.ToString("yyyy-MM-dd");
                 return dateString;
             }
             set
@@ -34,7 +34,7 @@ namespace Essam
 
                     DateTime result;
                     if (DateTime.TryParseExact(value, "yyyy-MM-dd", null, System.Globalization.DateTimeStyles.None, out result))
-                        ((HomeSaleTransaction)Data).Date = result;
+                        ((HomeSaleTransaction)Data).TransactionDate = result;
                     else
                         dateString = value;
                 }

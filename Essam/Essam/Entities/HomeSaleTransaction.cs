@@ -14,8 +14,8 @@ namespace Essam
     {
 
         public FranchiseOffice ParentFranchiseOffice;
-        public DateTime Date;
-        public decimal SalesPrice;
-        public decimal Commission;
+        public DateTime TransactionDate;
+        public long SalesPrice;
+        public long Commission;
     }
 }

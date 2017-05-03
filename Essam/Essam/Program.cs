@@ -61,10 +61,6 @@ namespace Essam
                     json.HomeSaleTransactionNew = Db.Scope(() =>
                     {
                         HomeSaleTransactionDetailsJson transactionJson = new HomeSaleTransactionDetailsJson();
-                        transactionJson.Data = new HomeSaleTransaction
-                        {
-                            ParentFranchiseOffice = office
-                        };
                         return transactionJson;
                     });
 

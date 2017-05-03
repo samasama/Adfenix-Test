@@ -8,35 +8,45 @@ namespace Essam
         public string FullAddress => Street + " " + House + ", " + PostalCode + " " + City + ", " + Country;
 
         private string dateString;
+        private DateTime parsedDate;
         public string DateString
         {
             get
             {
-                if (Data != null && ((HomeSaleTransaction)Data).Date != DateTime.MinValue)
-                    return ((HomeSaleTransaction)Data).Date.ToString("yyyy-MM-dd");
+                if (Data != null && ((HomeSaleTransaction)Data).TransactionDate != DateTime.MinValue)
+                    return ((HomeSaleTransaction)Data).TransactionDate.ToString("yyyy-MM-dd");
                 return dateString;
             }
             set
             {
-                if (Data != null)
+                dateString = value;
+                if (DateTime.TryParseExact(value, "yyyy-MM-dd", null, System.Globalization.DateTimeStyles.None, out parsedDate) && Data != null)
                 {
 
-                    DateTime result;
-                    if (DateTime.TryParseExact(value, "yyyy-MM-dd", null, System.Globalization.DateTimeStyles.None, out result))
-                        ((HomeSaleTransaction)Data).Date = result;
-                    else
-                        dateString = value;
+                    ((HomeSaleTransaction)Data).TransactionDate = parsedDate;
+
                 }
-                else
-                {
-                    dateString = value;
-                }
+
 
             }
         }
-        public void Save()
+        public HomeSaleTransaction Save(FranchiseOffice office)
         {
+            HomeSaleTransaction newTrans = new HomeSaleTransaction
+            {
+                ParentFranchiseOffice = office,
+                Street = this.Street,
+                House = this.House,
+                PostalCode = this.PostalCode,
+                City = this.City,
+                Country = this.Country,
+                TransactionDate = this.parsedDate,
+                SalesPrice = this.SalesPrice,
+                Commission = this.Commission
+            };
+
             Transaction.Commit();
+            return newTrans;
         }
     }
 }
