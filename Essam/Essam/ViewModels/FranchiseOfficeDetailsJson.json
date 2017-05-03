@@ -1,0 +1,14 @@
+{
+  "Html": "/Essam/FranchiseOfficeDetailsJson.html",
+  "FranchiseOfficeName$": "",
+  "Street$": "",
+  "House$": "",
+  "PostalCode$": "",
+  "City$": "",
+  "Country$": "",
+  "FullAddress": "",
+  "HomeSaleTransactions": [ { } ],
+  "HomeSaleTransactionNew": { },
+  "SaveTrigger$": 0,
+  "SaveTransactionTrigger$":  1
+}

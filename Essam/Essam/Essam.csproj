@@ -75,6 +75,7 @@
     </Compile>
     <Compile Include="ViewModels\FranchiseOfficeDetailsJson.json.cs">
       <DependentUpon>FranchiseOfficeDetailsJson.json</DependentUpon>
+      <SubType>Code</SubType>
     </Compile>
     <Compile Include="ViewModels\FranchiseOfficeJson.json.cs">
       <DependentUpon>FranchiseOfficeJson.json</DependentUpon>
@@ -90,6 +91,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <TypedJSON Include="ViewModels\FranchiseOfficeDetailsJson.json">
+      <Generator>MsBuild:Compile</Generator>
+    </TypedJSON>
     <TypedJSON Include="ViewModels\StartJson.json">
       <Generator>MsBuild:Compile</Generator>
     </TypedJSON>
@@ -100,9 +104,6 @@
       <Generator>MsBuild:Compile</Generator>
     </TypedJSON>
     <TypedJSON Include="ViewModels\CorporationJson.json">
-      <Generator>MsBuild:Compile</Generator>
-    </TypedJSON>
-    <TypedJSON Include="ViewModels\FranchiseOfficeDetailsJson.json">
       <Generator>MsBuild:Compile</Generator>
     </TypedJSON>
     <TypedJSON Include="ViewModels\HomeSaleTransactionJson.json">
