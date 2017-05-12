@@ -5,19 +5,7 @@ namespace Essam
 {
     partial class SaleTransactionJson : Json
     {
-        public string FullAddress
-        {
-            get
-            {
-                if (Data != null)
-                {
-                    SaleTransaction trans = (SaleTransaction)Data;
-                    return trans.Street + " " + trans.House + ", " + trans.PostalCode + " " + trans.City + ", " + trans.Country;
-                }
-                return null;
-            }
-        }
-
+      
         private string dateString;
         public string DateString
         {

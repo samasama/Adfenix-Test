@@ -1,11 +1,6 @@
 {
   "Html": "/Essam/SaleTransactionDetailsJson.html",
-  "Street$": "",
-  "House$": "",
-  "PostalCode$": "",
-  "City$": "",
-  "Country$": "",
-  "FullAddress": "",
+  "Address": { },
   "DateString$":"",
   "SalesPrice$": 0,
   "Commission$": 0

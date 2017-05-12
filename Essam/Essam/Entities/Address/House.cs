@@ -5,10 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using Starcounter;
 
-namespace Essam.Entities
+namespace Essam
 {
     [Database]
     public class House
     {
+        public Street Street;
+        public string Value;
     }
 }

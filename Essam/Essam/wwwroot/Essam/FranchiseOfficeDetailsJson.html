@@ -5,36 +5,13 @@
     <template is="dom-bind">
         <a href="/Essam">&lt;&lt;&nbsp;Back to start</a>
         <div>
-            <h3>Settings: <b>{{Model.FranchiseOfficeName$}}</b> </h3>
+            <h3>Settings: <b>{{model.Name$}}</b> </h3>
             <h4>Edit franchise settings</h4>
             <fieldset>
                 <label>Name:</label>
-                <input value="{{model.FranchiseOfficeName$::input}}">
+                <input value="{{model.Name$::input}}">
             </fieldset>
-            <fieldset>
-                <label>Street:</label>
-                <input value="{{model.Street$::input}}">
-            </fieldset>
-            <fieldset>
-                <label>Number:</label>
-                <input value="{{model.House$::input}}">
-            </fieldset>
-            <fieldset>
-                <label>Zip Code:</label>
-                <input value="{{model.PostalCode$::input}}">
-            </fieldset>
-            <fieldset>
-                <label>City:</label>
-                <input value="{{model.City$::input}}">
-            </fieldset>
-            <fieldset>
-                <label>Country:</label>
-                <input value="{{model.Country$::input}}">
-            </fieldset>
-            <fieldset>
-                <label>Address:</label>
-                <span>{{model.FullAddress}}</span>
-            </fieldset>
+            <starcounter-include partial="{{model.Address}}"></starcounter-include>
         </div>
         <button value="{{model.SaveTrigger$::click}}" onmousedown="++this.value">Save</button>
         <br />

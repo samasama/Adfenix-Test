@@ -1,6 +1,6 @@
 {
-   "Html": "/Essam/SaleTransactionJson.html",
-  "FullAddress": "",
+  "Html": "/Essam/SaleTransactionJson.html",
+  "Address": { },
   "DateString":"",
   "SalesPrice": 0,
   "Commission": 0

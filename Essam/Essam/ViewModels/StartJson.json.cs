@@ -8,7 +8,6 @@ namespace Essam
 
         void Handle(Input.SaveTrigger action)
         {
-
             var corp = new Corporation()
             {
                 Name = CorporationName
@@ -18,11 +17,7 @@ namespace Essam
         }
         public void AddCorporation(Corporation corp)
         {
-            var corpJson = new CorporationJson
-            {
-                Data = corp
-            };
-            corpJson.RefreshOffices(corp.FranchiseOffices);
+            var corpJson = (CorporationJson)Self.GET("/Essam/partials/corporation/" + corp.GetObjectID());
             this.Corporations.Add(corpJson);
         }
         public void RefreshCorporations(IEnumerable<Corporation> corps)

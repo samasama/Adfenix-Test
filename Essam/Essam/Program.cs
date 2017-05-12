@@ -15,36 +15,20 @@ namespace Essam
             {
                 return Db.Scope(() =>
                 {
-                    var json = new StartJson();
-                    QueryResultRows<Corporation> corps = Db.SQL<Corporation>("SELECT c FROM Essam.Corporation c");
+                    var startJson = new StartJson();
+                    QueryResultRows<Corporation> corps = Corporation.Corporations;
 
-                    json.RefreshCorporations(corps);
+                    startJson.RefreshCorporations(corps);
 
                     if (Session.Current == null)
                     {
                         Session.Current = new Session(SessionOptions.PatchVersioning);
                     }
-                    json.Session = Session.Current;
-                    return json;
+                    startJson.Session = Session.Current;
+                    return startJson;
                 });
             });
 
-            Handle.GET("/Essam/partials/corporation/{?}", (string id) =>
-            {
-                var json = new CorporationJson();
-                json.Data = DbHelper.FromID(DbHelper.Base64DecodeObjectID(id));
-                return json;
-            });
-            Handle.GET("/Essam/partials/franchise_office/{?}", (string id) =>
-            {
-                return Db.Scope(() =>
-                {
-                    var json = new FranchiseOfficeJson();
-                    json.Data = DbHelper.FromID(DbHelper.Base64DecodeObjectID(id));
-
-                    return json;
-                });
-            });
 
             Handle.GET("/Essam/franchise_office_details/{?}", (string id) =>
             {
@@ -53,28 +37,92 @@ namespace Essam
 
                     FranchiseOffice office = (FranchiseOffice)DbHelper.FromID(DbHelper.Base64DecodeObjectID(id));
 
-                    var json = new FranchiseOfficeDetailsJson();
-                    json.Data = DbHelper.FromID(DbHelper.Base64DecodeObjectID(id));
-
-                    json.RefreshSaleTransactions(office.SaleTransactions);
-
-                    json.SaleTransactionNew = Db.Scope(() =>
+                    var franchiseOfficeDetailsJson = new FranchiseOfficeDetailsJson
                     {
-                        SaleTransactionDetailsJson transactionJson = new SaleTransactionDetailsJson();
-                        return transactionJson;
-                    });
+                        Data = office,
+                        Address = office.Address == null? new AddressDetailsJson(): (AddressDetailsJson)Self.GET("/Essam/partials/address_details/" + office.Address.GetObjectID()),
+                        SaleTransactionNew = Db.Scope(() =>
+                        {
+                            SaleTransactionDetailsJson transactionJson = new SaleTransactionDetailsJson
+                            {
+                                Address = new AddressDetailsJson()
+                            };
 
+                            if (Session.Current == null)
+                            {
+                                Session.Current = new Session(SessionOptions.PatchVersioning);
+                            }
+                            transactionJson.Session = Session.Current;
+                            return transactionJson;
+                        })
+                    };
+
+                    franchiseOfficeDetailsJson.RefreshSaleTransactions(office.SaleTransactions);
 
                     if (Session.Current == null)
                     {
                         Session.Current = new Session(SessionOptions.PatchVersioning);
                     }
-                    json.Session = Session.Current;
-                    return json;
+                    franchiseOfficeDetailsJson.Session = Session.Current;
+
+                    return franchiseOfficeDetailsJson;
                 });
             });
 
 
+            Handle.GET("/Essam/partials/corporation/{?}", (string id) =>
+            {
+                Corporation corp = (Corporation)DbHelper.FromID(DbHelper.Base64DecodeObjectID(id));
+                var corporationJson = new CorporationJson
+                {
+                    Data = corp
+                };
+                corporationJson.RefreshOffices(corp.FranchiseOffices);
+
+                return corporationJson;
+            });
+
+            Handle.GET("/Essam/partials/franchise_office/{?}", (string id) =>
+            {
+                var franchiseOfficeJson = new FranchiseOfficeJson
+                {
+                    Data = DbHelper.FromID(DbHelper.Base64DecodeObjectID(id))
+                };
+                return franchiseOfficeJson;
+
+            });
+
+            Handle.GET("/Essam/partials/address_details/{?}", (string id) =>
+            {
+                var addressJson = new AddressDetailsJson
+                {
+                    Data = DbHelper.FromID(DbHelper.Base64DecodeObjectID(id))
+                };
+                return addressJson;
+
+            });
+
+            Handle.GET("/Essam/partials/address/{?}", (string id) =>
+            {
+                var addressJson = new AddressJson
+                {
+                    Data = DbHelper.FromID(DbHelper.Base64DecodeObjectID(id))
+                };
+                return addressJson;
+
+            });
+
+            Handle.GET("/Essam/partials/transaction/{?}", (string id) =>
+            {
+                SaleTransaction transaction = (SaleTransaction)DbHelper.FromID(DbHelper.Base64DecodeObjectID(id));
+                var saleTransactionJson = new SaleTransactionJson
+                {
+                    Data = transaction,
+                    Address = transaction.Address == null? new AddressJson():(AddressJson)Self.GET("/Essam/partials/address/" + transaction.Address.GetObjectID())
+                };
+                return saleTransactionJson;
+
+            });
         }
     }
 }

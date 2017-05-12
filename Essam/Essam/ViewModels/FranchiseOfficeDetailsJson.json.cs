@@ -5,20 +5,17 @@ namespace Essam
 {
     partial class FranchiseOfficeDetailsJson : Json
     {
-        public string FullAddress => Street + " " + House + ", " + PostalCode + " " + City + ", " + Country;
-      
-        
         void Handle(Input.SaveTrigger action)
         {
+            AddressDetailsJson addressJson = ((AddressDetailsJson)Address);
+            Address address = addressJson.Resolve();
+            ((FranchiseOffice)Data).Address = address;
             Transaction.Commit();
         }
 
         public void AddSaleTransaction(SaleTransaction trans)
         {
-            var transJson = new SaleTransactionJson()
-            {
-                Data = trans
-            };
+            var transJson = (SaleTransactionJson)Self.GET("/Essam/partials/transaction/" + trans.GetObjectID());
             this.SaleTransactions.Add(transJson);
         }
         public void RefreshSaleTransactions(IEnumerable<SaleTransaction> transactions)
