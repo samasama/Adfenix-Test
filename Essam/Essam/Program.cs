@@ -56,11 +56,11 @@ namespace Essam
                     var json = new FranchiseOfficeDetailsJson();
                     json.Data = DbHelper.FromID(DbHelper.Base64DecodeObjectID(id));
 
-                    json.RefreshHomeSaleTransactions(office.HomeSaleTransactions);
+                    json.RefreshSaleTransactions(office.SaleTransactions);
 
-                    json.HomeSaleTransactionNew = Db.Scope(() =>
+                    json.SaleTransactionNew = Db.Scope(() =>
                     {
-                        HomeSaleTransactionDetailsJson transactionJson = new HomeSaleTransactionDetailsJson();
+                        SaleTransactionDetailsJson transactionJson = new SaleTransactionDetailsJson();
                         return transactionJson;
                     });
 

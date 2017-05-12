@@ -7,8 +7,8 @@
   "City$": "",
   "Country$": "",
   "FullAddress": "",
-  "HomeSaleTransactions": [ { } ],
-  "HomeSaleTransactionNew": { },
+  "SaleTransactions": [ { } ],
+  "SaleTransactionNew": { },
   "SaveTrigger$": 0,
   "SaveTransactionTrigger$":  1
 }

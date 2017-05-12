@@ -3,7 +3,7 @@ using System;
 
 namespace Essam
 {
-    partial class HomeSaleTransactionJson : Json
+    partial class SaleTransactionJson : Json
     {
         public string FullAddress
         {
@@ -11,7 +11,7 @@ namespace Essam
             {
                 if (Data != null)
                 {
-                    HomeSaleTransaction trans = (HomeSaleTransaction)Data;
+                    SaleTransaction trans = (SaleTransaction)Data;
                     return trans.Street + " " + trans.House + ", " + trans.PostalCode + " " + trans.City + ", " + trans.Country;
                 }
                 return null;
@@ -23,8 +23,8 @@ namespace Essam
         {
             get
             {
-                if (Data != null && ((HomeSaleTransaction)Data).TransactionDate != DateTime.MinValue)
-                    return ((HomeSaleTransaction)Data).TransactionDate.ToString("yyyy-MM-dd");
+                if (Data != null && ((SaleTransaction)Data).TransactionDate != DateTime.MinValue)
+                    return ((SaleTransaction)Data).TransactionDate.ToString("yyyy-MM-dd");
                 return dateString;
             }
             set
@@ -34,7 +34,7 @@ namespace Essam
 
                     DateTime result;
                     if (DateTime.TryParseExact(value, "yyyy-MM-dd", null, System.Globalization.DateTimeStyles.None, out result))
-                        ((HomeSaleTransaction)Data).TransactionDate = result;
+                        ((SaleTransaction)Data).TransactionDate = result;
                     else
                         dateString = value;
                 }

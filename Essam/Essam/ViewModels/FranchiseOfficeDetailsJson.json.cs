@@ -13,28 +13,28 @@ namespace Essam
             Transaction.Commit();
         }
 
-        public void AddHomeSaleTransaction(HomeSaleTransaction trans)
+        public void AddSaleTransaction(SaleTransaction trans)
         {
-            var transJson = new HomeSaleTransactionJson()
+            var transJson = new SaleTransactionJson()
             {
                 Data = trans
             };
-            this.HomeSaleTransactions.Add(transJson);
+            this.SaleTransactions.Add(transJson);
         }
-        public void RefreshHomeSaleTransactions(IEnumerable<HomeSaleTransaction> transactions)
+        public void RefreshSaleTransactions(IEnumerable<SaleTransaction> transactions)
         {
-            this.HomeSaleTransactions.Clear();
-            foreach (HomeSaleTransaction trans in transactions)
+            this.SaleTransactions.Clear();
+            foreach (SaleTransaction trans in transactions)
             {
-                AddHomeSaleTransaction(trans);
+                AddSaleTransaction(trans);
             }
         }
 
         void Handle(Input.SaveTransactionTrigger action)
         {
-            HomeSaleTransactionDetailsJson transJson = ((HomeSaleTransactionDetailsJson)HomeSaleTransactionNew);
-            HomeSaleTransaction newTrans = transJson.Save((FranchiseOffice)Data);
-            AddHomeSaleTransaction(newTrans);
+            SaleTransactionDetailsJson transJson = ((SaleTransactionDetailsJson)SaleTransactionNew);
+            SaleTransaction newTrans = transJson.Save((FranchiseOffice)Data);
+            AddSaleTransaction(newTrans);
         }
     }
 }

@@ -18,7 +18,10 @@ namespace Essam
         }
         public void AddCorporation(Corporation corp)
         {
-            var corpJson = (CorporationJson)Self.GET("/Essam/partials/corporation/" + corp.GetObjectID());
+            var corpJson = new CorporationJson
+            {
+                Data = corp
+            };
             corpJson.RefreshOffices(corp.FranchiseOffices);
             this.Corporations.Add(corpJson);
         }

@@ -17,7 +17,10 @@ namespace Essam
         }
         public void AddFranchiseOffice(FranchiseOffice office)
         {
-            var officeJson = (FranchiseOfficeJson)Self.GET("/Essam/partials/franchise_office/" + office.GetObjectID());
+            var officeJson = new FranchiseOfficeJson
+            {
+                Data = office
+            };
             this.FranchiseOffices.Add(officeJson);
         }
         public void RefreshOffices(IEnumerable<FranchiseOffice> offices)

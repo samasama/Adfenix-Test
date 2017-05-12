@@ -10,7 +10,7 @@ using Starcounter;
 namespace Essam
 {
     [Database]
-    public class HomeSaleTransaction:Address
+    public class SaleTransaction:Address
     {
 
         public FranchiseOffice ParentFranchiseOffice;

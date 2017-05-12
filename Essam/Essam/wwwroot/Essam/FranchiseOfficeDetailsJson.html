@@ -41,7 +41,7 @@
         <br />
 
         <h4>Register new home for sale</h4>
-        <starcounter-include partial="{{model.HomeSaleTransactionNew}}"></starcounter-include>
+        <starcounter-include partial="{{model.SaleTransactionNew}}"></starcounter-include>
         <button value="{{model.SaveTransactionTrigger$::click}}" onmousedown="++this.value">Register</button>
         <h4>List of transactions</h4>
         <div width="80%">
@@ -51,7 +51,7 @@
             <div style="display:table-cell;width:200px"><b>Commission</b></div>
             <div style="display:table-cell;width:400px"><b>Address</b></div>
         </div>
-        <template is="dom-repeat" items="{{model.HomeSaleTransactions}}">
+        <template is="dom-repeat" items="{{model.SaleTransactions}}">
             <div>
                 <starcounter-include partial="{{item}}"></starcounter-include>
             </div>
