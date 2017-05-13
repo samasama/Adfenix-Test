@@ -6,6 +6,26 @@ namespace Essam
     {
         public string FullAddress => StreetValue + " " + HouseValue + ", " + ZipCodeValue + " " + CityValue + ", " + CountryValue;
 
+       
+        private string houseValue = null;
+        public string HouseValue
+        {
+            get
+            {
+                if (houseValue == null && Data != null)
+                {
+                    Address address = (Address)Data;
+                    houseValue = address.House != null? address.House.Value: null;
+                }
+
+                return houseValue;
+
+            }
+            set
+            {
+                houseValue = value;
+            }
+        }
         private string streetValue = null;
         public string StreetValue
         {
@@ -14,7 +34,7 @@ namespace Essam
                 if (streetValue == null && Data != null)
                 {
                     Address address = (Address)Data;
-                    streetValue = address.House.Street.Value;
+                    streetValue = address.House != null && address.House.Street != null ? address.House.Street.Value : null;
                 }
 
                 return streetValue;
@@ -26,26 +46,6 @@ namespace Essam
             }
         }
 
-        private string houseValue = null;
-        public string HouseValue
-        {
-            get
-            {
-                if (houseValue == null && Data != null)
-                {
-                    Address address = (Address)Data;
-                    houseValue = address.House.Value;
-                }
-
-                return houseValue;
-
-            }
-            set
-            {
-                houseValue = value;
-            }
-        }
-
         private string cityValue = null;
         public string CityValue
         {
@@ -54,7 +54,7 @@ namespace Essam
                 if (cityValue == null && Data != null)
                 {
                     Address address = (Address)Data;
-                    cityValue = address.House.Street.City.Value;
+                    cityValue = address.House != null && address.House.Street != null && address.House.Street.City != null? address.House.Street.City.Value:null;
                 }
 
                 return cityValue;
@@ -75,7 +75,7 @@ namespace Essam
                 if (countryValue == null && Data != null)
                 {
                     Address address = (Address)Data;
-                    countryValue = address.House.Street.City.Country.Value;
+                    countryValue = address.House != null && address.House.Street != null && address.House.Street.City != null && address.House.Street.City.Country != null? address.House.Street.City.Country.Value:null;
                 }
 
                 return countryValue;
@@ -95,7 +95,7 @@ namespace Essam
                 if (zipCodeValue == null && Data != null)
                 {
                     Address address = (Address)Data;
-                    zipCodeValue = address.ZipCode.Value;
+                    zipCodeValue = address.ZipCode != null? address.ZipCode.Value:null;
                 }
 
                 return zipCodeValue;
@@ -108,10 +108,9 @@ namespace Essam
         }
 
 
-        public Address Resolve()
+        public void Resolve(Address address)
         {
-            Address address = Address.Resolve(CountryValue, CityValue, StreetValue, HouseValue, ZipCodeValue);
-            return address;
+            address.Resolve(CountryValue, CityValue, StreetValue, HouseValue, ZipCodeValue);
         }
     }
 }

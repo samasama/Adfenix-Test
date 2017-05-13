@@ -9,11 +9,9 @@ using Starcounter;
 namespace Essam
 {
     [Database]
-    public class SaleTransaction
+    public class SaleTransaction : Address
     {
-
         public FranchiseOffice ParentFranchiseOffice;
-        public Address Address;
         public DateTime TransactionDate;
         public long SalesPrice;
         public long Commission;

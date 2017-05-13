@@ -15,11 +15,12 @@ namespace Essam
             SaleTransaction newTrans = new SaleTransaction
             {
                 ParentFranchiseOffice = office,
-                Address = ((AddressDetailsJson)Address).Resolve(),
+              
                 TransactionDate = parsedDate,
                 SalesPrice = this.SalesPrice,
                 Commission = this.Commission
             };
+            ((AddressDetailsJson)Address).Resolve(newTrans);
             Transaction.Commit();
             return newTrans;
         }

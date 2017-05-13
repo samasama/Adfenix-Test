@@ -8,11 +8,9 @@ using System.Threading.Tasks;
 namespace Essam
 {
     [Database]
-    public class FranchiseOffice 
+    public class FranchiseOffice:Address
     {
         public String Name;
-
-        public Address Address;
 
         public Corporation ParentCorporation;
         public QueryResultRows<SaleTransaction> SaleTransactions => Db.SQL<SaleTransaction>("SELECT hst FROM SaleTransaction hst WHERE hst.ParentFranchiseOffice = ? ORDER BY hst.TransactionDate DESC", this);

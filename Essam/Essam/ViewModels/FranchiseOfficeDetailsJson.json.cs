@@ -8,8 +8,7 @@ namespace Essam
         void Handle(Input.SaveTrigger action)
         {
             AddressDetailsJson addressJson = ((AddressDetailsJson)Address);
-            Address address = addressJson.Resolve();
-            ((FranchiseOffice)Data).Address = address;
+            addressJson.Resolve((FranchiseOffice)Data);
             Transaction.Commit();
         }
 

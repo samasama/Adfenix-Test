@@ -40,7 +40,7 @@ namespace Essam
                     var franchiseOfficeDetailsJson = new FranchiseOfficeDetailsJson
                     {
                         Data = office,
-                        Address = office.Address == null? new AddressDetailsJson(): (AddressDetailsJson)Self.GET("/Essam/partials/address_details/" + office.Address.GetObjectID()),
+                        Address = (AddressDetailsJson)Self.GET("/Essam/partials/address_details/" + office.GetObjectID()),
                         SaleTransactionNew = Db.Scope(() =>
                         {
                             SaleTransactionDetailsJson transactionJson = new SaleTransactionDetailsJson
@@ -118,7 +118,7 @@ namespace Essam
                 var saleTransactionJson = new SaleTransactionJson
                 {
                     Data = transaction,
-                    Address = transaction.Address == null? new AddressJson():(AddressJson)Self.GET("/Essam/partials/address/" + transaction.Address.GetObjectID())
+                    Address = (AddressJson)Self.GET("/Essam/partials/address/" + transaction.GetObjectID())
                 };
                 return saleTransactionJson;
 
