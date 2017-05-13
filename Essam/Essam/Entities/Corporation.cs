@@ -12,8 +12,8 @@ namespace Essam
     {
         public string Name;
 
-        public QueryResultRows<FranchiseOffice> FranchiseOffices => Db.SQL<FranchiseOffice>("SELECT fo FROM FranchiseOffice fo WHERE fo.ParentCorporation = ?", this);
+        public QueryResultRows<FranchiseOffice> FranchiseOffices => Db.SQL<FranchiseOffice>("SELECT fo FROM Essam.FranchiseOffice fo WHERE fo.ParentCorporation = ?", this);
 
-        public static QueryResultRows<Corporation> Corporations => Db.SQL<Corporation>("SELECT c FROM Corporation c");
+        public static QueryResultRows<Corporation> Corporations => Db.SQL<Corporation>("SELECT c FROM Essam.Corporation c");
     }
 }
